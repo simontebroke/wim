@@ -44,7 +44,7 @@ export default function Site() {
   };
 
   return (
-    <div className="overflow-hidden bg-gray-950 min-h-screen flex flex-col items-center justify-center relative isolate">
+    <div className="overflow-hidden bg-gray-950 min-h-screen flex flex-col items-center justify-start pt-30 sm:justify-center sm:pt-0 relative isolate">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 opacity-60 sm:opacity-30"
@@ -72,8 +72,12 @@ export default function Site() {
       </div>
 
       {!isExerciseActive ? (
-        <div className="relative isolate px-6 pt-5 lg:px-8 w-full max-w-4xl text-center z-10">
+        <div className="relative isolate px-6 lg:px-8 w-full max-w-4xl text-center z-10">
+          {" "}
+          {/* Removed lg:pt-5 as parent now handles padding */}
           <div className="mx-auto max-w-lg py-16 sm:py-24 lg:py-32">
+            {" "}
+            {/* Adjusted padding might be needed here too depending on the look */}
             <div className="mb-4 flex justify-center">
               <div className="relative rounded-full px-3 py-1 text-xs md:text-base text-gray-500 transition duration-100 ease-in ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-98 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-900/50">
                 <a
@@ -92,7 +96,6 @@ export default function Site() {
                 </a>
               </div>
             </div>
-
             <div className="text-center mt-5">
               <h1
                 ref={textRef}
