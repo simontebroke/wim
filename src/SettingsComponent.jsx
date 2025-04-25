@@ -1,24 +1,38 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import AnimatedNumber from "./AnimatedNumber";
 import { useSettings } from "./SettingsContext";
+import { Gauge, Wind, Repeat } from "lucide-react";
+
+const SPEED_OPTIONS = [
+  { label: "Slow", value: 3.5 },
+  { label: "Normal", value: 3.1 },
+  { label: "Fast", value: 2.9 },
+];
+
+const BREATH_OPTIONS = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+const ROUND_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export default function SettingsComponent({
   initialRounds = 3,
   initialBreaths = 30,
+  initialSpeed = 3.1, // Default speed value
 }) {
   // Get settings and update function from context
   const { settings, updateSettings } = useSettings();
 
-  // Local state for UI
+  // Local state for UI, initialized from context or initial props
   const [roundsValue, setRoundsValue] = useState(
-    settings.rounds || initialRounds
+    settings.rounds !== undefined ? settings.rounds : initialRounds
   );
   const [breathsValue, setBreathsValue] = useState(
-    settings.breaths || initialBreaths
+    settings.breaths !== undefined ? settings.breaths : initialBreaths
   );
-  const [speedValue, setSpeedValue] = useState(settings.breathingSpeed || 1.5);
+  const [speedValue, setSpeedValue] = useState(
+    settings.breathingSpeed !== undefined
+      ? settings.breathingSpeed
+      : initialSpeed
+  );
 
   // Update context when local state changes
   useEffect(() => {
@@ -29,110 +43,107 @@ export default function SettingsComponent({
     });
   }, [roundsValue, breathsValue, speedValue, updateSettings]);
 
-  const increaseRounds = () => setRoundsValue((v) => Math.min(v + 1, 15));
-  const decreaseRounds = () => setRoundsValue((v) => Math.max(v - 1, 1));
+  // Button styles mimicking the example's 'default' and 'secondary' variants
+  // Removed cn, using template literals
+  const getButtonClasses = (isActive) => {
+    const baseClasses =
+      "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2";
+    const activeClasses =
+      "bg-indigo-600 text-white hover:bg-indigo-600/90 ring-1 ring-indigo-600";
+    const inactiveClasses =
+      "bg-gray-100 text-gray-900 hover:bg-gray-200/80 ring-1 ring-gray-300";
 
-  const increaseBreaths = () => setBreathsValue((v) => Math.min(v + 10, 90));
-  const decreaseBreaths = () => setBreathsValue((v) => Math.max(v - 10, 10));
-
-  const setSpeed = (speed) => {
-    setSpeedValue(speed);
+    return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
   };
 
   return (
-    <div className="flex gap-2 flex-col">
-      {/* Speed Settings */}
-      <div>
-        <p className="text-gray-950 text-xl font-semibold">Speed</p>
-
-        <div className="grid grid-cols-3 gap-2">
-          <button
-            className={`bg-transparent transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ${
-              speedValue === 3.5
-                ? "ring-indigo-500 bg-indigo-50"
-                : "ring-gray-800 hover:ring-gray-700"
-            } focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5`}
-            onClick={() => setSpeed(3.5)}
-          >
-            <span className="text-sm font-semibold text-black block text-center">
-              Slow
-            </span>
-          </button>
-          <button
-            className={`bg-transparent transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ${
-              speedValue === 3.1
-                ? "ring-indigo-500 bg-indigo-50"
-                : "ring-gray-800 hover:ring-gray-700"
-            } focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5`}
-            onClick={() => setSpeed(3.1)}
-          >
-            <span className="text-sm font-semibold text-black block text-center">
-              Normal
-            </span>
-          </button>
-          <button
-            className={`bg-transparent transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ${
-              speedValue === 2.9
-                ? "ring-indigo-500 bg-indigo-50"
-                : "ring-gray-800 hover:ring-gray-700"
-            } focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5`}
-            onClick={() => setSpeed(2.9)}
-          >
-            <span className="text-sm font-semibold text-black block text-center">
-              Fast
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* Breath Settings */}
-      <div className="flex flex-col mt-4 gap-1">
-        <p className="text-gray-950 text-lg font-semibold">Number of Breaths</p>
-        <div className="flex items-center text-xl">
-          <button
-            onClick={decreaseBreaths}
-            className="text-gray-400 hover:text-black transition-colors duration-200 cursor-pointer
-             text-lg"
-          >
-            -
-          </button>
-
-          <div className="text-2xl font-semibold min-w-[4ch] text-center select-none">
-            <AnimatedNumber value={breathsValue} />
+    <div className="flex w-full flex-col items-center bg-white p-4 sm:p-8 pt-6 sm:pt-8">
+      <div className="w-full max-w-sm space-y-10">
+        <section className="space-y-4">
+          <div className="flex items-center space-x-3">
+            <Gauge className="h-6 w-6 text-indigo-600" />
+            <div>
+              <h2 className="text-xl font-semibold text-gray-950">
+                Breathing Speed
+              </h2>
+              <p className="text-sm text-gray-500">
+                Choose how fast you want to breathe.
+              </p>
+            </div>
           </div>
-
-          <button
-            onClick={increaseBreaths}
-            className="text-gray-400 hover:text-black transition-colors duration-200 cursor-pointer text-lg"
-          >
-            +
-          </button>
-        </div>
-      </div>
-
-      {/* Rounds Settings */}
-      <div className="flex flex-col mt-4 gap-1">
-        <p className="text-gray-950 text-xl font-semibold">Number of Rounds</p>
-        <div className="flex items-center text-xl">
-          <button
-            onClick={decreaseRounds}
-            className="text-gray-400 hover:text-black transition-colors duration-200 cursor-pointer
-             text-lg"
-          >
-            -
-          </button>
-
-          <div className="text-2xl font-semibold min-w-[4ch] text-center select-none">
-            <AnimatedNumber value={roundsValue} />
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            {SPEED_OPTIONS.map((option) => (
+              <button
+                key={option.label}
+                onClick={() => setSpeedValue(option.value)}
+                className={`${getButtonClasses(
+                  speedValue === option.value
+                )} py-5 text-base`}
+                aria-pressed={speedValue === option.value}
+              >
+                {option.label}
+              </button>
+            ))}
           </div>
-
-          <button
-            onClick={increaseRounds}
-            className="text-gray-400 hover:text-black transition-colors duration-200 cursor-pointer text-lg"
-          >
-            +
-          </button>
-        </div>
+        </section>
+        {/* Number of Breaths */}
+        <section className="space-y-4">
+          <div className="flex items-center space-x-3">
+            <Wind className="h-6 w-6 text-indigo-600" />
+            <div>
+              <h2 className="text-xl font-semibold text-gray-950">
+                Number of Breaths
+              </h2>
+              <p className="text-sm text-gray-500">Number of inhalations.</p>
+            </div>
+          </div>
+          {/* Using more columns for breaths */}
+          <div className="grid grid-cols-5 gap-2 sm:gap-3">
+            {BREATH_OPTIONS.map((option) => (
+              <button
+                key={option}
+                onClick={() => setBreathsValue(option)}
+                // Removed cn, using template literals for additional classes
+                className={`${getButtonClasses(
+                  breathsValue === option
+                )} py-3 text-sm`}
+                aria-pressed={breathsValue === option}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </section>
+        {/* Number of Rounds */}
+        <section className="space-y-4">
+          <div className="flex items-center space-x-3">
+            <Repeat className="h-6 w-6 text-indigo-600" />
+            <div>
+              <h2 className="text-xl font-semibold text-gray-950">
+                Number of Rounds
+              </h2>
+              <p className="text-sm text-gray-500">
+                How many cycles to perform.
+              </p>
+            </div>
+          </div>
+          {/* Using more columns for rounds */}
+          <div className="grid grid-cols-5 gap-2 sm:gap-3">
+            {ROUND_OPTIONS.map((option) => (
+              <button
+                key={option}
+                onClick={() => setRoundsValue(option)}
+                // Removed cn, using template literals for additional classes
+                className={`${getButtonClasses(
+                  roundsValue === option
+                )} py-3 text-sm`}
+                aria-pressed={roundsValue === option}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

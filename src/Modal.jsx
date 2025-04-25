@@ -20,12 +20,11 @@ export default function Modal() {
       </Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/50" />
-        <Drawer.Content className="bg-white flex flex-col rounded-t-[20px] h-[50vh] mt-24 fixed bottom-0 left-0 right-0 max-w-6xl sm:max-w-lg mx-auto">
-          <div className="p-4 rounded-t-[20px] flex-1">
-            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-8" />
+        <Drawer.Content className="bg-white flex flex-col rounded-t-[20px] h-[58vh] mt-16 fixed bottom-0 left-0 right-0 max-w-6xl sm:max-w-lg mx-auto">
+          <div className="p-4 rounded-t-[20px] flex-1 overflow-y-auto">
+            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300" />
             <div className="max-w-md mx-auto">
               <div className="p-4">
-                {/* Ersetze die drei separaten Komponenten durch die kombinierte Komponente */}
                 <SettingsComponent initialRounds={3} initialBreaths={30} />
               </div>
             </div>

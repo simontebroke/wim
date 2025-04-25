@@ -4,7 +4,7 @@ import { createContext, useState, useContext } from "react";
 const defaultSettings = {
   rounds: 3,
   breaths: 30,
-  breathingSpeed: 1.5, // seconds per breath cycle
+  breathingSpeed: 3.1,
 };
 
 // Create the context

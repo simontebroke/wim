@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 function WimHofApp() {
   const [numberOfRounds, setNumberOfRounds] = useState(3);
   const [numberOfBreaths, setNumberOfBreaths] = useState(30);
-  const [breathingSpeed, setBreathingSpeed] = useState(5.5);
+  const [breathingSpeed, setBreathingSpeed] = useState(3.1);
 
   const [appPhase, setAppPhase] = useState("setup");
   const [currentRound, setCurrentRound] = useState(1);
@@ -245,10 +245,6 @@ function SettingsPanel({
 }) {
   return (
     <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-      <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-        Wim Hof Breathing Exercise
-      </h1>
-
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-medium mb-2">
           Number of Rounds:
@@ -354,67 +350,69 @@ function ExerciseScreen({
     return "0.3s";
   };
 
-  const circleStyle = {
-    transform: `scale(${scaleValue})`,
-    transition: `transform ${getTransitionDuration()} ease-in-out, background-color 0.5s, border-color 0.5s`,
-  };
+  const textOpacity = scaleValue > 0.5 ? 1 : 0;
+  const scaleTransitionDuration = getTransitionDuration();
+  const opacityTransitionDuration =
+    phase === "breathing"
+      ? `${(breathingSpeed / 2) * 0.7}s`
+      : scaleTransitionDuration;
 
-  const circleClasses = () => {
-    const baseClasses =
-      "flex items-center justify-center w-64 h-64 rounded-full";
-
-    if (breathPhase === "inhale" || breathPhase === "deepInhale") {
-      return `${baseClasses} bg-blue-100 border-4 border-blue-500`;
-    } else if (breathPhase === "exhale") {
-      return `${baseClasses} bg-blue-50 border-4 border-blue-300`;
-    } else if (breathPhase === "holdInhale") {
-      return `${baseClasses} bg-blue-100 border-4 border-blue-500`;
-    } else if (breathPhase === "hold") {
-      return `${baseClasses} bg-red-100 border-4 border-red-500`;
-    }
-
-    return baseClasses;
-  };
+  const outerScale = scaleValue === 1 ? 1.2 : scaleValue;
 
   return (
     <div className="flex flex-col items-center w-full max-w-lg text-center">
-      <div className="text-lg font-medium text-gray-700 mb-2">
-        Round {currentRound} of {totalRounds}
-      </div>
-
-      {phase === "breathing" && (
-        <div className="text-lg font-medium text-gray-700 mb-6">
-          Breath {currentBreath + 1} of {totalBreaths}
+      <div
+        className={`w-64 h-64 rounded-full border-2 border-white/20 flex items-center justify-center`}
+        style={{
+          transform: `scale(${outerScale})`,
+          transition: `transform ${scaleTransitionDuration} ease-in-out`,
+        }}
+      >
+        <div
+          className={`w-48 h-48 rounded-full border-3 border-white/40 flex items-center justify-center transition-transform duration-1000 ${
+            phase === "holdBreath" ? "scale-90" : "scale-100"
+          }`}
+        >
+          <div
+            className={`w-32 h-32 rounded-full border-4 border-white/60 flex flex-col items-center justify-center transition-transform duration-1000 ${
+              phase === "holdBreath" ? "scale-90" : "scale-100"
+            }`}
+          >
+            {/* Apply opacity and transition to the text elements */}
+            <span
+              className="text-4xl font-semibold text-white select-none"
+              style={{
+                opacity: textOpacity,
+                transition: `opacity ${opacityTransitionDuration} ease-in-out`, // Use faster opacity duration
+              }}
+            >
+              {phase === "breathing" && currentBreath + 1}{" "}
+              {phase === "holdBreath" && "Hold"}
+              {phase === "recoveryBreath" &&
+                breathPhase === "deepInhale" &&
+                "Deep Inhale"}
+              {phase === "recoveryBreath" &&
+                breathPhase === "holdInhale" &&
+                "Hold Inhale"}
+              {phase === "recoveryBreath" &&
+                breathPhase === "exhale" &&
+                "Exhale"}
+            </span>
+            {(phase === "holdBreath" || phase === "recoveryBreath") && (
+              <div
+                className="text-6xl font-bold text-white"
+                style={{
+                  opacity: textOpacity,
+                  transition: `opacity ${opacityTransitionDuration} ease-in-out`,
+                }}
+              >
+                {timer.toFixed(1)}
+              </div>
+            )}
+          </div>
         </div>
-      )}
-
-      <div className={circleClasses()} style={circleStyle}>
-        {phase === "holdBreath" && (
-          <div className="text-4xl font-bold text-gray-800">
-            {timer.toFixed(1)}s
-          </div>
-        )}
-
-        {phase === "recoveryBreath" && (
-          <div className="text-4xl font-bold text-gray-800">
-            {timer.toFixed(1)}s
-          </div>
-        )}
       </div>
-
-      <div className="text-xl font-semibold text-gray-800 my-6 h-7">
-        {phase === "holdBreath" && "Hold your breath"}
-        {phase === "recoveryBreath" &&
-          breathPhase === "deepInhale" &&
-          "Deep inhale"}
-        {phase === "recoveryBreath" &&
-          breathPhase === "holdInhale" &&
-          "Hold the inhale"}
-        {phase === "recoveryBreath" &&
-          breathPhase === "exhale" &&
-          "Slow exhale"}
-      </div>
-
+      <div className="my-6 h-7"></div>
       {phase === "holdBreath" && (
         <button
           onClick={stopHoldBreath}
@@ -423,12 +421,13 @@ function ExerciseScreen({
           Release Breath
         </button>
       )}
-
       <button
         onClick={resetExercise}
-        className="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+        className="bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
       >
-        Reset Exercise
+        <span className="text-m font-semibold text-white block text-center">
+          Reset
+        </span>
       </button>
     </div>
   );
