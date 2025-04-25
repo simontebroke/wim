@@ -87,7 +87,7 @@ export default function Header2alt() {
                       className="absolute inset-0"
                       aria-hidden="true"
                     ></span>
-                    click here <span aria-hidden="true">&rarr;</span>
+                    click here. <span aria-hidden="true">&rarr;</span>
                   </span>
                 </a>
               </div>
