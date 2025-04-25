@@ -1,20 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AnimatedNumber from "./AnimatedNumber";
+import { useSettings } from "./SettingsContext";
 
 export default function SettingsComponent({
   initialRounds = 3,
   initialBreaths = 30,
 }) {
-  const [roundsValue, setRoundsValue] = useState(initialRounds);
-  const [breathsValue, setBreathsValue] = useState(initialBreaths);
+  // Get settings and update function from context
+  const { settings, updateSettings } = useSettings();
+
+  // Local state for UI
+  const [roundsValue, setRoundsValue] = useState(
+    settings.rounds || initialRounds
+  );
+  const [breathsValue, setBreathsValue] = useState(
+    settings.breaths || initialBreaths
+  );
+  const [speedValue, setSpeedValue] = useState(settings.breathingSpeed || 1.5);
+
+  // Update context when local state changes
+  useEffect(() => {
+    updateSettings({
+      rounds: roundsValue,
+      breaths: breathsValue,
+      breathingSpeed: speedValue,
+    });
+  }, [roundsValue, breathsValue, speedValue, updateSettings]);
 
   const increaseRounds = () => setRoundsValue((v) => Math.min(v + 1, 15));
   const decreaseRounds = () => setRoundsValue((v) => Math.max(v - 1, 1));
 
   const increaseBreaths = () => setBreathsValue((v) => Math.min(v + 10, 90));
   const decreaseBreaths = () => setBreathsValue((v) => Math.max(v - 10, 10));
+
+  const setSpeed = (speed) => {
+    setSpeedValue(speed);
+  };
 
   return (
     <div className="flex gap-2 flex-col">
@@ -23,29 +46,41 @@ export default function SettingsComponent({
         <p className="text-gray-950 text-xl font-semibold">Speed</p>
 
         <div className="grid grid-cols-3 gap-2">
-          <button className="bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5">
-            <a
-              href="#"
-              className="text-sm font-semibold text-black block text-center"
-            >
+          <button
+            className={`bg-transparent transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ${
+              speedValue === 2.5
+                ? "ring-indigo-500 bg-indigo-50"
+                : "ring-gray-800 hover:ring-gray-700"
+            } focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5`}
+            onClick={() => setSpeed(2.5)}
+          >
+            <span className="text-sm font-semibold text-black block text-center">
               Slow
-            </a>
+            </span>
           </button>
-          <button className="bg-transparent hover:bg-apple transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5">
-            <a
-              href="#"
-              className="text-sm font-semibold text-black block text-center"
-            >
+          <button
+            className={`bg-transparent transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ${
+              speedValue === 1.5
+                ? "ring-indigo-500 bg-indigo-50"
+                : "ring-gray-800 hover:ring-gray-700"
+            } focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5`}
+            onClick={() => setSpeed(1.5)}
+          >
+            <span className="text-sm font-semibold text-black block text-center">
               Normal
-            </a>
+            </span>
           </button>
-          <button className="bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5">
-            <a
-              href="#"
-              className="text-sm font-semibold text-black block text-center"
-            >
+          <button
+            className={`bg-transparent transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ${
+              speedValue === 0.8
+                ? "ring-indigo-500 bg-indigo-50"
+                : "ring-gray-800 hover:ring-gray-700"
+            } focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5`}
+            onClick={() => setSpeed(0.8)}
+          >
+            <span className="text-sm font-semibold text-black block text-center">
               Fast
-            </a>
+            </span>
           </button>
         </div>
       </div>
