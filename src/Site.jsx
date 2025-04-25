@@ -73,11 +73,7 @@ export default function Site() {
 
       {!isExerciseActive ? (
         <div className="relative isolate px-6 lg:px-8 w-full max-w-4xl text-center z-10">
-          {" "}
-          {/* Removed lg:pt-5 as parent now handles padding */}
           <div className="mx-auto max-w-lg py-16 sm:py-24 lg:py-32">
-            {" "}
-            {/* Adjusted padding might be needed here too depending on the look */}
             <div className="mb-4 flex justify-center">
               <div className="relative rounded-full px-3 py-1 text-xs md:text-base text-gray-500 transition duration-100 ease-in ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-98 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-900/50">
                 <a
@@ -102,7 +98,7 @@ export default function Site() {
                 className="invisible px-2 text-5xl tracking-tighter text-balance max-lg:font-medium max-sm:px-4 sm:text-6xl text-white"
                 style={{ willChange: "transform, opacity" }}
               >
-                Free, costumizable Wim breathing.
+                Free and costumizable Wim breathing.
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-300 ">
                 Enjoy unlimited guided Wim style breathing sessions and discover
