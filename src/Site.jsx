@@ -6,7 +6,7 @@ import { splitText } from "motion-plus";
 import Modal from "./Modal";
 import BreathingExercise from "./BreathingExercise";
 
-export default function Header2alt() {
+export default function Site() {
   const textRef = useRef(null);
   const [isExerciseActive, setIsExerciseActive] = useState(false);
 
