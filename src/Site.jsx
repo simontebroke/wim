@@ -101,7 +101,7 @@ export default function Site() {
                   width: "auto",
                 }}
               >
-                Free, costumizable Wim&nbsp;Hof breathing.
+                Free, costumizable Wim&nbsp;breathing.
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-300 ">
                 Enjoy unlimited guided Wim Hof style breathing sessions and
