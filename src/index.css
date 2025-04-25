@@ -16,10 +16,10 @@
 }
 
 body {
-  overscroll-behavior: contain;
+  overscroll-behavior: none;
   overflow-x: hidden;
+  overflow-y: hidden;
   height: 100%;
-  /* color: #d7d7da; */
 }
 
 @theme {
