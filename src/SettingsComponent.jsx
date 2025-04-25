@@ -44,8 +44,7 @@ export default function SettingsComponent({
   const getButtonClasses = (isActive) => {
     const baseClasses =
       "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 z-10";
-    const activeClasses =
-      "text-white z-1000 transition duration-100 ease-in ring-0";
+    const activeClasses = "text-white z-1000 transition duration-100 ease-in";
     const inactiveClasses = "bg-gray-100 text-gray-950 hover:bg-gray-200";
 
     return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
@@ -60,7 +59,7 @@ export default function SettingsComponent({
           <div className="flex items-center space-x-3">
             <Gauge className="h-6 w-6 text-indigo-700" />
             <div>
-              <h2 className="text-xl font-semibold text-gray-950">
+              <h2 className="text-xl font-semibold tracking-tighter text-gray-950">
                 Breathing Speed
               </h2>
               <p className="text-sm text-gray-500">
@@ -97,7 +96,7 @@ export default function SettingsComponent({
           <div className="flex items-center space-x-3">
             <Wind className="h-6 w-6 text-indigo-700" />
             <div>
-              <h2 className="text-xl font-semibold text-gray-950">
+              <h2 className="text-xl tracking-tighter font-semibold text-gray-950">
                 Number of Breaths
               </h2>
               <p className="text-sm text-gray-500">Number of inhalations.</p>
@@ -135,7 +134,7 @@ export default function SettingsComponent({
           <div className="flex items-center space-x-3">
             <Repeat className="h-6 w-6 text-indigo-700" />
             <div>
-              <h2 className="text-xl font-semibold text-gray-950">
+              <h2 className="text-xl tracking-tighter font-semibold text-gray-950">
                 Number of Rounds
               </h2>
               <p className="text-sm text-gray-500">
