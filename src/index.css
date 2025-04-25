@@ -14,3 +14,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+body {
+  overscroll-behavior: contain;
+  overflow-x: hidden;
+  height: 100%;
+  overflow-x: hidden;
+}
