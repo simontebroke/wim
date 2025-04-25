@@ -81,7 +81,7 @@ export default function Site() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  For gGuidance and health instructions{" "}
+                  For guidance and health instructions{" "}
                   <span className=" text-indigo-500">
                     <span
                       className="absolute inset-0"
@@ -99,7 +99,7 @@ export default function Site() {
                 className="invisible px-2 text-5xl tracking-tighter text-balance max-lg:font-medium max-sm:px-4 sm:text-6xl text-white"
                 style={{ willChange: "transform, opacity" }}
               >
-                Free, costumizable Wim breathing. NOW!
+                Free, costumizable Wim breathing.
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-300 ">
                 Enjoy unlimited guided Wim style breathing sessions and discover
