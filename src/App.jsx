@@ -2,13 +2,13 @@ import { useState } from "react";
 {
   /*import Header from "./Header";*/
 }
-import Header from "./Header2alt";
+import Site from "./Site";
 import { AnimateNumber } from "motion-number";
 
 function App() {
   return (
     <>
-      <Header />
+      <Site />
     </>
   );
 }

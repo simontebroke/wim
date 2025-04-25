@@ -6,7 +6,7 @@ import { splitText } from "motion-plus";
 import Modal from "./Modal";
 import BreathingExercise from "./BreathingExercise";
 
-export default function Header2alt() {
+export default function Site() {
   const textRef = useRef(null);
   const [isExerciseActive, setIsExerciseActive] = useState(false);
 
@@ -81,7 +81,7 @@ export default function Header2alt() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  For guidance and health instructions{" "}
+                  For gGuidance and health instructions{" "}
                   <span className=" text-indigo-500">
                     <span
                       className="absolute inset-0"
