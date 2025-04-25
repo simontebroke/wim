@@ -75,7 +75,7 @@ export default function Header2alt() {
         <div className="relative isolate px-6 pt-5 lg:px-8 w-full max-w-4xl text-center z-10">
           <div className="mx-auto max-w-lg py-16 sm:py-24 lg:py-32">
             <div className="mb-4 flex justify-center">
-              <div className="relative rounded-full px-3 py-1 text-xs md:text-base text-gray-500 transition duration-50 ease-in-out ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-98 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-900/50">
+              <div className="relative rounded-full px-3 py-1 text-xs md:text-base text-gray-500 transition duration-100 ease-in-out ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-98 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-900/50">
                 <a
                   href="https://www.wimhofmethod.com/breathing-exercises"
                   target="_blank"
