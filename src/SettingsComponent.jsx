@@ -99,7 +99,9 @@ export default function SettingsComponent({
               <h2 className="text-xl tracking-tighter font-semibold text-gray-950">
                 Number of Breaths
               </h2>
-              <p className="text-sm text-gray-500">Number of inhalations.</p>
+              <p className="text-sm text-gray-500">
+                The number of inhalations.
+              </p>
             </div>
           </div>
           <div className="grid grid-cols-5 gap-2 sm:gap-3 relative">
