@@ -1,27 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 
 function WimHofApp() {
-  // Settings states
   const [numberOfRounds, setNumberOfRounds] = useState(3);
   const [numberOfBreaths, setNumberOfBreaths] = useState(30);
-  const [breathingSpeed, setBreathingSpeed] = useState(5.5); // seconds per breath cycle
+  const [breathingSpeed, setBreathingSpeed] = useState(5.5);
 
-  // App state management
-  const [appPhase, setAppPhase] = useState("setup"); // setup, breathing, holdBreath, recoveryBreath, results
+  const [appPhase, setAppPhase] = useState("setup");
   const [currentRound, setCurrentRound] = useState(1);
-  const [currentBreath, setCurrentBreath] = useState(0); // Start breath count at 0
-  const [breathPhase, setBreathPhase] = useState("inhale"); // inhale, exhale
+  const [currentBreath, setCurrentBreath] = useState(0);
+  const [breathPhase, setBreathPhase] = useState("inhale");
   const [timer, setTimer] = useState(0);
   const [maxHoldTime, setMaxHoldTime] = useState(0);
   const [roundResults, setRoundResults] = useState([]);
 
-  // Timer references
   const timerRef = useRef(null);
   const breathingTimerRef = useRef(null);
 
-  // Controls the breathing animation
   useEffect(() => {
-    // Only run if in breathing phase
     if (appPhase !== "breathing") {
       if (breathingTimerRef.current) {
         clearTimeout(breathingTimerRef.current);
@@ -30,17 +25,13 @@ function WimHofApp() {
       return;
     }
 
-    // Check if the number of breaths for the round is complete *before* setting timers
     if (currentBreath >= numberOfBreaths) {
-      // Move to breath hold phase
       setAppPhase("holdBreath");
       setBreathPhase("hold");
-      // Don't reset currentBreath here; completeRound will reset it for the *next* round.
       startHoldTimer();
-      return; // Exit effect early
+      return;
     }
 
-    // Clear any previous timer for this effect before setting a new one
     if (breathingTimerRef.current) {
       clearTimeout(breathingTimerRef.current);
       breathingTimerRef.current = null;
@@ -51,24 +42,18 @@ function WimHofApp() {
     if (breathPhase === "inhale") {
       breathingTimerRef.current = setTimeout(() => {
         if (appPhase === "breathing") {
-          // Check phase before setting state
           setBreathPhase("exhale");
         }
       }, breathDuration * 1000);
     } else {
-      // breathPhase === "exhale"
       breathingTimerRef.current = setTimeout(() => {
         if (appPhase === "breathing") {
-          // Check phase before setting state
-          // Increment breath count first
           setCurrentBreath((prev) => prev + 1);
-          // Then set inhale phase for the next breath (or trigger hold check on next effect run)
           setBreathPhase("inhale");
         }
       }, breathDuration * 1000);
     }
 
-    // Cleanup
     return () => {
       if (breathingTimerRef.current) {
         clearTimeout(breathingTimerRef.current);
@@ -77,77 +62,61 @@ function WimHofApp() {
     };
   }, [appPhase, breathPhase, currentBreath, numberOfBreaths, breathingSpeed]);
 
-  // Start the hold breath timer
   const startHoldTimer = () => {
-    // Safety clear before setting new interval
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = null;
     }
     setTimer(0);
     timerRef.current = setInterval(() => {
-      // Use functional update for timer to ensure accuracy
       setTimer((prevTime) => prevTime + 0.1);
     }, 100);
   };
 
-  // User stopped holding breath
   const stopHoldBreath = () => {
-    // Clear the timer *first*
     if (timerRef.current) {
       clearInterval(timerRef.current);
-      timerRef.current = null; // Nullify
+      timerRef.current = null;
     }
 
-    // Use a local variable for the time to avoid race conditions with state updates
     const holdTime = timer;
 
-    // Record the result using the local variable
     setRoundResults((prev) => [...prev, holdTime]);
-    // Use functional update for maxHoldTime based on the recorded time
     setMaxHoldTime((prevMax) => Math.max(prevMax, holdTime));
 
-    // Move to recovery breath *after* state updates related to results
     setAppPhase("recoveryBreath");
-    // startRecoveryBreath will set the initial breathPhase
     startRecoveryBreath();
   };
 
-  // Handle the recovery breath (15 seconds)
   const startRecoveryBreath = () => {
-    // Safety clear before setting new interval
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = null;
     }
     setTimer(15);
-    setBreathPhase("deepInhale"); // Start with deep inhale
+    setBreathPhase("deepInhale");
 
     timerRef.current = setInterval(() => {
       setTimer((prev) => {
         const nextTime = prev - 0.1;
         if (nextTime <= 0) {
           clearInterval(timerRef.current);
-          timerRef.current = null; // Nullify after clearing
-          startExhale(); // Call startExhale *after* clearing
+          timerRef.current = null;
+          startExhale();
           return 0;
         }
         return nextTime;
       });
     }, 100);
 
-    // After 3 seconds, change the breath phase to hold
     setTimeout(() => {
-      // Check phase before setting state
       if (appPhase === "recoveryBreath") {
         setBreathPhase("holdInhale");
       }
     }, 3000);
   };
 
-  // Handle the final exhale
   const startExhale = () => {
-    // Safety clear before setting new interval
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = null;
@@ -160,8 +129,8 @@ function WimHofApp() {
         const nextTime = prev - 0.1;
         if (nextTime <= 0) {
           clearInterval(timerRef.current);
-          timerRef.current = null; // Nullify after clearing
-          completeRound(); // Call completeRound *after* clearing
+          timerRef.current = null;
+          completeRound();
           return 0;
         }
         return nextTime;
@@ -169,39 +138,33 @@ function WimHofApp() {
     }, 100);
   };
 
-  // Complete the current round
   const completeRound = () => {
     if (currentRound < numberOfRounds) {
-      // Start next round
       setCurrentRound((prev) => prev + 1);
       setAppPhase("breathing");
       setBreathPhase("inhale");
-      setCurrentBreath(0); // Reset breath count FOR THE NEW ROUND
-      setTimer(0); // Reset timer value for the next hold phase
+      setCurrentBreath(0);
+      setTimer(0);
     } else {
-      // All rounds complete, show results
       setAppPhase("results");
     }
   };
 
-  // Start the whole exercise
   const startExercise = () => {
-    // Clear any lingering timers from previous runs
     if (timerRef.current) clearInterval(timerRef.current);
     if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
     timerRef.current = null;
     breathingTimerRef.current = null;
 
     setCurrentRound(1);
-    setCurrentBreath(0); // Ensure breath count starts at 0
+    setCurrentBreath(0);
     setBreathPhase("inhale");
     setAppPhase("breathing");
     setRoundResults([]);
-    setMaxHoldTime(0); // Reset max hold time
-    setTimer(0); // Reset timer display
+    setMaxHoldTime(0);
+    setTimer(0);
   };
 
-  // Reset everything
   const resetExercise = () => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -213,13 +176,12 @@ function WimHofApp() {
     }
     setAppPhase("setup");
     setCurrentRound(1);
-    setCurrentBreath(0); // Reset breath count to 0
+    setCurrentBreath(0);
     setTimer(0);
-    setRoundResults([]); // Clear results
-    setMaxHoldTime(0); // Clear max hold time
+    setRoundResults([]);
+    setMaxHoldTime(0);
   };
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -252,12 +214,12 @@ function WimHofApp() {
           breathPhase={breathPhase}
           currentRound={currentRound}
           totalRounds={numberOfRounds}
-          currentBreath={currentBreath} // Pass 0-indexed breath count
+          currentBreath={currentBreath}
           totalBreaths={numberOfBreaths}
           timer={timer}
           stopHoldBreath={stopHoldBreath}
           resetExercise={resetExercise}
-          breathingSpeed={breathingSpeed} // Pass breathingSpeed
+          breathingSpeed={breathingSpeed}
         />
       )}
 
@@ -348,70 +310,54 @@ function ExerciseScreen({
   breathPhase,
   currentRound,
   totalRounds,
-  currentBreath, // Receives 0-indexed breath count
+  currentBreath,
   totalBreaths,
   timer,
   stopHoldBreath,
   resetExercise,
   breathingSpeed,
 }) {
-  const [scaleValue, setScaleValue] = useState(0.25); // Start at exhale scale
+  const [scaleValue, setScaleValue] = useState(0.25);
 
-  // Remove the useEffect that reads data-breathing-speed and breathingSpeedRef
-  // const breathingSpeedRef = useRef(null);
-  // useEffect(() => { ... remove this ... }, []);
-
-  // Update the scale value based on breath phase using CSS transitions
   useEffect(() => {
     if (phase === "breathing") {
       if (breathPhase === "inhale") {
-        setScaleValue(1); // Target scale for inhale
+        setScaleValue(1);
       } else if (breathPhase === "exhale") {
-        setScaleValue(0.25); // Target scale for exhale
+        setScaleValue(0.25);
       }
     } else if (phase === "holdBreath") {
-      setScaleValue(0.8); // Fixed scale for hold breath
+      // Keep scale at 0.25 from previous exhale
     } else if (phase === "recoveryBreath") {
       if (breathPhase === "deepInhale") {
-        setScaleValue(1); // Target scale for deep inhale (will transition over 3s)
+        setScaleValue(1);
       } else if (breathPhase === "holdInhale") {
-        setScaleValue(1); // Maintain full scale
+        setScaleValue(1);
       } else if (breathPhase === "exhale") {
-        setScaleValue(0.25); // Target scale for final exhale (will transition over 5s)
+        setScaleValue(0.25);
       }
     } else {
-      // Default scale if needed
       setScaleValue(0.25);
     }
-  }, [phase, breathPhase]); // Depend on phase and breathPhase
+  }, [phase, breathPhase]);
 
-  // Calculate transition duration based on the phase and breathingSpeed
   const getTransitionDuration = () => {
     if (phase === "breathing") {
-      // Use half the breathing cycle speed for inhale/exhale transitions
       return `${breathingSpeed / 2}s`;
     } else if (phase === "holdBreath") {
-      // Always use 2 seconds for the hold breath transition
-      return "2s";
+      return "2s"; // Transition duration for potential future animations during hold
     } else if (phase === "recoveryBreath") {
-      // Specific durations for recovery phases
       if (breathPhase === "deepInhale") return "3s";
       if (breathPhase === "exhale") return "5s";
-      // Add a default for holdInhale within recovery if needed, otherwise it uses the final default
-      if (breathPhase === "holdInhale") return "0.3s"; // Or another desired duration
+      if (breathPhase === "holdInhale") return "0.3s";
     }
-    // Default transition for any other states or instant changes
     return "0.3s";
   };
 
-  // Dynamic style for the breathing circle using CSS transitions
   const circleStyle = {
     transform: `scale(${scaleValue})`,
-    transition: `transform ${getTransitionDuration()} ease-in-out, background-color 0.5s, border-color 0.5s`, // Apply transition to transform
+    transition: `transform ${getTransitionDuration()} ease-in-out, background-color 0.5s, border-color 0.5s`,
   };
-
-  // Remove the requestAnimationFrame useEffect
-  // useEffect(() => { ... remove this whole effect ... }, [phase, breathPhase]);
 
   const circleClasses = () => {
     const baseClasses =
@@ -438,7 +384,6 @@ function ExerciseScreen({
 
       {phase === "breathing" && (
         <div className="text-lg font-medium text-gray-700 mb-6">
-          {/* Add 1 here for display */}
           Breath {currentBreath + 1} of {totalBreaths}
         </div>
       )}
@@ -457,9 +402,7 @@ function ExerciseScreen({
         )}
       </div>
 
-      <div className="text-xl font-semibold text-gray-800 my-6">
-        {phase === "breathing" && breathPhase === "inhale" && "Inhale"}
-        {phase === "breathing" && breathPhase === "exhale" && "Exhale"}
+      <div className="text-xl font-semibold text-gray-800 my-6 h-7">
         {phase === "holdBreath" && "Hold your breath"}
         {phase === "recoveryBreath" &&
           breathPhase === "deepInhale" &&
@@ -531,7 +474,6 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
   );
 }
 
-// Stelle sicher, dass diese Komponenten exportiert werden
 export { ExerciseScreen, ResultsScreen };
 
-export default WimHofApp; // Der Default-Export kann bleiben oder entfernt werden, wenn nicht mehr benötigt
+export default WimHofApp;
