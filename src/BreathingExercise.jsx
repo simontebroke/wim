@@ -1,19 +1,18 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
 import { ExerciseScreen, ResultsScreen } from "./Wim.jsx";
-
-// Default settings (can be overridden by props if needed later)
-const DEFAULT_ROUNDS = 6;
-const DEFAULT_BREATHS = 5;
-const DEFAULT_SPEED = 1.5;
+import { useSettings } from "./SettingsContext";
 
 export default function BreathingExercise({ onComplete }) {
-  // Settings states (using defaults, could be props)s
-  const [numberOfRounds] = useState(DEFAULT_ROUNDS);
-  const [numberOfBreaths] = useState(DEFAULT_BREATHS);
-  const [breathingSpeed] = useState(DEFAULT_SPEED);
+  // Get settings from context
+  const { settings } = useSettings();
+
+  // Use settings from context instead of defaults
+  const [numberOfRounds] = useState(settings.rounds);
+  const [numberOfBreaths] = useState(settings.breaths);
+  const [breathingSpeed] = useState(settings.breathingSpeed);
 
   // App state management
   const [appPhase, setAppPhase] = useState("breathing"); // Start directly in breathing phase
@@ -26,7 +25,7 @@ export default function BreathingExercise({ onComplete }) {
 
   // Timer references
   const timerRef = useRef(null);
-  const breathingTimerRef = useRef(null); // Keep this if used internally
+  const breathingTimerRef = useRef(null);
 
   // Controls the breathing animation cycle
   useEffect(() => {
@@ -198,5 +197,5 @@ export default function BreathingExercise({ onComplete }) {
 }
 
 BreathingExercise.propTypes = {
-  onComplete: PropTypes.func.isRequired,
+  onComplete: PropTypes.func,
 };
