@@ -80,9 +80,8 @@ export default function BreathingExercise({ onComplete }) {
     startRecoveryBreath();
   };
 
-  // Handle the recovery breath (15 seconds)
   const startRecoveryBreath = () => {
-    setTimer(3); // timer for recbreath
+    setTimer(15);
     setBreathPhase("deepInhale");
     if (timerRef.current) clearInterval(timerRef.current);
 
@@ -104,7 +103,7 @@ export default function BreathingExercise({ onComplete }) {
       if (appPhase === "recoveryBreath" && timerRef.current) {
         setBreathPhase("holdInhale");
       }
-    }, 3000);
+    }, 3000); // Keep this at 3 seconds for the initial deep inhale before holding
   };
 
   // Handle the final exhale after recovery

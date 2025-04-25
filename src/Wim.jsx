@@ -376,33 +376,24 @@ function ExerciseScreen({
           <div
             className={`w-32 h-32 rounded-full border-4 border-white/60 flex flex-col items-center justify-center transition-transform duration-1000 ${
               phase === "holdBreath" ? "scale-90" : "scale-100"
-            }`}
+            } h-20`}
           >
-            {/* Apply opacity and transition to the text elements */}
-            <span
-              className="text-4xl font-semibold text-white select-none"
-              style={{
-                opacity: textOpacity,
-                transition: `opacity ${opacityTransitionDuration} ease-in-out`, // Use faster opacity duration
-              }}
-            >
-              {phase === "breathing" && currentBreath + 1}{" "}
-              {phase === "holdBreath" && "Hold"}
-              {phase === "recoveryBreath" &&
-                breathPhase === "deepInhale" &&
-                "Deep Inhale"}
-              {phase === "recoveryBreath" &&
-                breathPhase === "holdInhale" &&
-                "Hold Inhale"}
-              {phase === "recoveryBreath" &&
-                breathPhase === "exhale" &&
-                "Exhale"}
-            </span>
-            {(phase === "holdBreath" || phase === "recoveryBreath") && (
-              <div
-                className="text-6xl font-bold text-white"
+            {phase === "breathing" && (
+              <span
+                className="text-5xl font-semibold text-white select-none"
                 style={{
                   opacity: textOpacity,
+                  transition: `opacity ${opacityTransitionDuration} ease-in-out`,
+                }}
+              >
+                {currentBreath + 1}
+              </span>
+            )}
+            {(phase === "holdBreath" || phase === "recoveryBreath") && (
+              <div
+                className="text-4xl font-bold text-white"
+                style={{
+                  opacity: 1,
                   transition: `opacity ${opacityTransitionDuration} ease-in-out`,
                 }}
               >
@@ -413,22 +404,24 @@ function ExerciseScreen({
         </div>
       </div>
       <div className="my-6 h-7"></div>
-      {phase === "holdBreath" && (
-        <button
-          onClick={stopHoldBreath}
-          className="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-6 rounded-md mb-4 transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
-        >
-          Release Breath
-        </button>
-      )}
+
       <button
         onClick={resetExercise}
-        className="bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
+        className="bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5 mb-4"
       >
         <span className="text-m font-semibold text-white block text-center">
           Reset
         </span>
       </button>
+
+      {phase === "holdBreath" && (
+        <button
+          onClick={stopHoldBreath}
+          className="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-6 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+        >
+          Release Breath
+        </button>
+      )}
     </div>
   );
 }

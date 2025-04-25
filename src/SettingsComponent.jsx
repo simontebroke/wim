@@ -11,7 +11,7 @@ const SPEED_OPTIONS = [
   { label: "Fast", value: 2.9 },
 ];
 
-const BREATH_OPTIONS = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+const BREATH_OPTIONS = [3, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 const ROUND_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export default function SettingsComponent({
