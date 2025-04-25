@@ -81,7 +81,7 @@ export default function Site() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  For guidance and health instructions{" "}
+                  For gGuidance and health instructions{" "}
                   <span className=" text-indigo-500">
                     <span
                       className="absolute inset-0"
