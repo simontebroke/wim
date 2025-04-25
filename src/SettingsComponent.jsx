@@ -46,8 +46,7 @@ export default function SettingsComponent({
       "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 z-10";
     const activeClasses =
       "text-white z-1000 transition duration-100 ease-in ring-0";
-    const inactiveClasses =
-      "bg-apple text-gray-950 hover:bg-gray-200 ring-1 ring-gray-300";
+    const inactiveClasses = "bg-gray-100 text-gray-950 hover:bg-gray-200";
 
     return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
   };
