@@ -99,7 +99,7 @@ export default function Header2alt() {
                 className="invisible px-2 text-5xl tracking-tighter text-balance max-lg:font-medium max-sm:px-4 sm:text-6xl text-white"
                 style={{ willChange: "transform, opacity" }}
               >
-                Free, costumizable Wim breathing.
+                Free, costumizable Wim breathing. NOW!
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-300 ">
                 Enjoy unlimited guided Wim style breathing sessions and discover
