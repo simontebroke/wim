@@ -48,11 +48,11 @@ export default function SettingsComponent({
         <div className="grid grid-cols-3 gap-2">
           <button
             className={`bg-transparent transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ${
-              speedValue === 2.5
+              speedValue === 3.5
                 ? "ring-indigo-500 bg-indigo-50"
                 : "ring-gray-800 hover:ring-gray-700"
             } focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5`}
-            onClick={() => setSpeed(2.5)}
+            onClick={() => setSpeed(3.5)}
           >
             <span className="text-sm font-semibold text-black block text-center">
               Slow
@@ -60,11 +60,11 @@ export default function SettingsComponent({
           </button>
           <button
             className={`bg-transparent transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ${
-              speedValue === 1.5
+              speedValue === 3.1
                 ? "ring-indigo-500 bg-indigo-50"
                 : "ring-gray-800 hover:ring-gray-700"
             } focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5`}
-            onClick={() => setSpeed(1.5)}
+            onClick={() => setSpeed(3.1)}
           >
             <span className="text-sm font-semibold text-black block text-center">
               Normal
@@ -72,11 +72,11 @@ export default function SettingsComponent({
           </button>
           <button
             className={`bg-transparent transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ${
-              speedValue === 0.8
+              speedValue === 2.9
                 ? "ring-indigo-500 bg-indigo-50"
                 : "ring-gray-800 hover:ring-gray-700"
             } focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5`}
-            onClick={() => setSpeed(0.8)}
+            onClick={() => setSpeed(2.9)}
           >
             <span className="text-sm font-semibold text-black block text-center">
               Fast

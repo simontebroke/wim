@@ -355,7 +355,7 @@ function ExerciseScreen({
   resetExercise,
   breathingSpeed,
 }) {
-  const [scaleValue, setScaleValue] = useState(0.75); // Start at exhale scale
+  const [scaleValue, setScaleValue] = useState(0.25); // Start at exhale scale
 
   // Remove the useEffect that reads data-breathing-speed and breathingSpeedRef
   // const breathingSpeedRef = useRef(null);
@@ -367,21 +367,21 @@ function ExerciseScreen({
       if (breathPhase === "inhale") {
         setScaleValue(1); // Target scale for inhale
       } else if (breathPhase === "exhale") {
-        setScaleValue(0.75); // Target scale for exhale
+        setScaleValue(0.25); // Target scale for exhale
       }
     } else if (phase === "holdBreath") {
-      setScaleValue(0.9); // Fixed scale for hold breath
+      setScaleValue(0.8); // Fixed scale for hold breath
     } else if (phase === "recoveryBreath") {
       if (breathPhase === "deepInhale") {
         setScaleValue(1); // Target scale for deep inhale (will transition over 3s)
       } else if (breathPhase === "holdInhale") {
         setScaleValue(1); // Maintain full scale
       } else if (breathPhase === "exhale") {
-        setScaleValue(0.75); // Target scale for final exhale (will transition over 5s)
+        setScaleValue(0.25); // Target scale for final exhale (will transition over 5s)
       }
     } else {
       // Default scale if needed
-      setScaleValue(0.75);
+      setScaleValue(0.25);
     }
   }, [phase, breathPhase]); // Depend on phase and breathPhase
 
