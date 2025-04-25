@@ -50,7 +50,7 @@ export default function SettingsComponent({
     return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
   };
 
-  const bubbleTransition = { type: "spring", bounce: 0.2, duration: 0.4 };
+  const bubbleTransition = { type: "spring", bounce: 0.2, duration: 0.35 };
 
   return (
     <div className="flex w-full flex-col items-center bg-white p-4 sm:p-8 pt-6 sm:pt-8">
