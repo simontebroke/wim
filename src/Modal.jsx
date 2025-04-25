@@ -2,10 +2,8 @@
 
 import { Drawer } from "vaul";
 import SettingsComponent from "./SettingsComponent";
-import { useState } from "react";
 
 export default function Modal() {
-  let [count, setCount] = useState(0);
   return (
     <Drawer.Root>
       <Drawer.Trigger>
