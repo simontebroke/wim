@@ -44,7 +44,7 @@ export default function Site() {
   };
 
   return (
-    <div className="overflow-hidden bg-gray-950 min-h-screen flex flex-col items-center justify-start pt-30 sm:justify-center sm:pt-0 relative isolate">
+    <div className="overflow-hidden bg-gray-950 min-h-screen flex flex-col items-center justify-start pt-28 sm:justify-center sm:pt-0 relative isolate">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 opacity-60 sm:opacity-30"
