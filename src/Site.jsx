@@ -19,6 +19,11 @@ export default function Site() {
 
         const { words } = splitText(textRef.current);
 
+        words.forEach((word) => {
+          word.style.display = "inline-block";
+          word.style.width = "auto";
+        });
+
         animate(
           words,
           { opacity: [0, 1], y: [10, 0] },
@@ -96,7 +101,11 @@ export default function Site() {
               <h1
                 ref={textRef}
                 className="invisible px-2 text-5xl tracking-tighter text-balance max-lg:font-medium max-sm:px-4 sm:text-6xl text-white"
-                style={{ willChange: "transform, opacity" }}
+                style={{
+                  willChange: "transform, opacity",
+                  display: "inline-block",
+                  width: "auto",
+                }}
               >
                 Free, costumizable Wim breathing.
               </h1>
