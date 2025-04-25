@@ -121,7 +121,7 @@ export default function Site() {
           </div>
         </div>
       ) : (
-        <div className="mt-18">
+        <div className="mt-19">
           <BreathingExercise onComplete={handleExerciseComplete} />
         </div>
       )}
