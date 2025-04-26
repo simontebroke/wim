@@ -96,10 +96,9 @@ export default function BreathingExercise({ onComplete }) {
         }
         return nextTime;
       });
-    }, 100);
+    }, 1000);
 
     setTimeout(() => {
-      // Check phase before setting, ensure timer still running
       if (appPhase === "recoveryBreath" && timerRef.current) {
         setBreathPhase("holdInhale");
       }
