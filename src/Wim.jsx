@@ -454,10 +454,8 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
   return (
     <div className="w-full max-w-md bg-transparent backdrop-blur-5xl rounded-2xl p-8 text-center">
       <div className="mb-8">
-        <h2 className="text-xl font-semibold text-white">
-          Maximum Breath Hold Time
-        </h2>
-        <div className="text-4xl font-bold text-indigo-500 mt-2">
+        <h2 className="text-xl font-semibold text-white">Maximum Hold Time</h2>
+        <div className="text-7xl font-extrabold text-indigo-500 mt-2 tracking-tighter">
           {formatHoldTime(maxHoldTime)} min
         </div>
       </div>
@@ -467,7 +465,7 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
           {roundResults.map((time, index) => (
             <li key={index} className="text-gray-300">
               <span className="font-semibold">Round {index + 1}:</span>{" "}
-              <span className="font-medium">{formatHoldTime(time)} min</span>
+              <span className="font-light">{formatHoldTime(time)} min</span>
             </li>
           ))}
         </ul>
@@ -475,9 +473,9 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
       <div className="flex justify-center">
         <button
           onClick={resetExercise}
-          className=" bg-indigo-700 hover:bg-indigo-600 hover:scale-97 transition duration-200 ease-in-out rounded-xl px-5 py-3 w-40 text-m font-semibold text-white block text-center"
+          className=" bg-indigo-600 hover:bg-indigo-500 hover:scale-97 transition duration-200 ease-in-out rounded-xl px-5 py-3 w-40 text-m font-semibold text-white block text-center"
         >
-          New Exercise
+          Go back
         </button>
       </div>
     </div>
