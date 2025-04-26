@@ -1,20 +1,16 @@
 import { createContext, useState, useContext } from "react";
 
-// Default settings
 const defaultSettings = {
   rounds: 3,
   breaths: 30,
   breathingSpeed: 3.1,
 };
 
-// Create the context
 const SettingsContext = createContext();
 
-// Provider component
 export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(defaultSettings);
 
-  // Function to update settings
   const updateSettings = (newSettings) => {
     setSettings((prev) => ({ ...prev, ...newSettings }));
   };
@@ -26,7 +22,6 @@ export function SettingsProvider({ children }) {
   );
 }
 
-// Custom hook to use the settings
 export function useSettings() {
   const context = useContext(SettingsContext);
   if (!context) {

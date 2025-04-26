@@ -466,11 +466,11 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
   };
 
   return (
-    <div className="mt-9">
-      <div className="w-full max-w-md bg-transparent rounded-2xl p-18 text-center ring-0 ring-gray-900 backdrop-blur-4xl">
+    <div className="mt-9 lg:mt-0">
+      <div className="w-full max-w-md bg-transparent rounded-2xl py-18 text-center ring-0 ring-gray-900 backdrop-blur-4xl">
         <div className="mb-8">
           <h2 className="text-xl font-medium text-white">Maximum Hold Time</h2>
-          <div className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-indigo-500 mt-2 tracking-tighter">
+          <div className="text-5xl sm:text-5xl md:text-7xl font-extrabold text-indigo-500 mt-2 tracking-tighter">
             {formatHoldTime(maxHoldTime)} min
           </div>
         </div>
