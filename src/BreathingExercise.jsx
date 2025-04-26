@@ -81,11 +81,11 @@ export default function BreathingExercise({ onComplete }) {
     timerRef.current = setInterval(() => {
       setTimer((prev) => {
         const nextTime = prev - 0.1;
-        if (nextTime <= 0) {
+        if (nextTime <= 1) {
           clearInterval(timerRef.current);
           timerRef.current = null;
           startExhale();
-          return 0;
+          return 1;
         }
         return nextTime;
       });
