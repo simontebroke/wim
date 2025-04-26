@@ -341,7 +341,7 @@ function ExerciseScreen({
     if (phase === "breathing") {
       return `${breathingSpeed / 2}s`;
     } else if (phase === "holdBreath") {
-      return "2s"; // Transition duration for potential future animations during hold
+      return "2s";
     } else if (phase === "recoveryBreath") {
       if (breathPhase === "deepInhale") return "3s";
       if (breathPhase === "exhale") return "5s";
