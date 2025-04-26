@@ -314,6 +314,7 @@ function ExerciseScreen({
   breathingSpeed,
 }) {
   const [scaleValue, setScaleValue] = useState(0.25);
+  const [timerOpacity, setTimerOpacity] = useState(1);
 
   useEffect(() => {
     if (phase === "breathing") {
@@ -323,14 +324,22 @@ function ExerciseScreen({
         setScaleValue(0.25);
       }
     } else if (phase === "holdBreath") {
-      // Keep scale at 0.25 from previous exhale
     } else if (phase === "recoveryBreath") {
       if (breathPhase === "deepInhale") {
         setScaleValue(1);
+        setTimerOpacity(1);
+
+        const fadeTimeout = setTimeout(() => {
+          setTimerOpacity(0);
+        }, 13000);
+
+        return () => clearTimeout(fadeTimeout);
       } else if (breathPhase === "holdInhale") {
         setScaleValue(1);
+        setTimerOpacity(1);
       } else if (breathPhase === "exhale") {
         setScaleValue(0.25);
+        setTimerOpacity(1);
       }
     } else {
       setScaleValue(0.25);
@@ -406,8 +415,11 @@ function ExerciseScreen({
               <div
                 className="text-4xl font-bold text-white"
                 style={{
-                  opacity: 1,
-                  transition: `opacity ${opacityTransitionDuration} ease-in-out`,
+                  opacity:
+                    phase === "recoveryBreath" && breathPhase === "deepInhale"
+                      ? timerOpacity
+                      : 1,
+                  transition: `opacity 2s ease-in`,
                 }}
               >
                 {formatTime(timer)}
@@ -452,9 +464,9 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
   };
 
   return (
-    <div className="w-full max-w-md bg-transparent backdrop-blur-5xl rounded-2xl p-8 text-center">
+    <div className="w-full max-w-md bg-transparent backdrop-blur-5xl rounded-2xl p-18 text-center ring-1 ring-gray-900 backdrop-blur-4xl">
       <div className="mb-8">
-        <h2 className="text-xl font-semibold text-white">Maximum Hold Time</h2>
+        <h2 className="text-xl font-medium text-white">Maximum Hold Time</h2>
         <div className="text-7xl font-extrabold text-indigo-500 mt-2 tracking-tighter">
           {formatHoldTime(maxHoldTime)} min
         </div>
@@ -463,9 +475,13 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
       <div className="mb-8">
         <ul className="space-y-2">
           {roundResults.map((time, index) => (
-            <li key={index} className="text-gray-300">
-              <span className="font-semibold">Round {index + 1}:</span>{" "}
-              <span className="font-light">{formatHoldTime(time)} min</span>
+            <li key={index}>
+              <span className="font-semibold text-slate-100">
+                Round {index + 1}:
+              </span>{" "}
+              <span className="font-ligh text-gray-300">
+                {formatHoldTime(time)} min
+              </span>
             </li>
           ))}
         </ul>
