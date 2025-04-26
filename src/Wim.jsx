@@ -464,7 +464,7 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
   };
 
   return (
-    <div className="w-full max-w-md bg-transparent backdrop-blur-5xl rounded-2xl p-18 text-center ring-1 ring-gray-900 backdrop-blur-4xl">
+    <div className="w-full max-w-md bg-transparent backdrop-blur-5xl rounded-2xl p-18 text-center ring-0 ring-gray-900 backdrop-blur-4xl">
       <div className="mb-8">
         <h2 className="text-xl font-medium text-white">Maximum Hold Time</h2>
         <div className="text-7xl font-extrabold text-indigo-500 mt-2 tracking-tighter">
@@ -489,9 +489,9 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
       <div className="flex justify-center">
         <button
           onClick={resetExercise}
-          className=" bg-indigo-600 hover:bg-indigo-500 hover:scale-97 transition duration-200 ease-in-out rounded-xl px-5 py-3 w-40 text-m font-semibold text-white block text-center"
+          className=" bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 mt-5 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
         >
-          Go back
+          <span className="text-center text-white font-semibold">Go back</span>
         </button>
       </div>
     </div>
