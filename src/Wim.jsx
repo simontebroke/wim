@@ -452,12 +452,12 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
   };
 
   return (
-    <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 text-center">
+    <div className="w-full max-w-md bg-transparent backdrop-blur-5xl rounded-2xl p-8 text-center">
       <div className="mb-8">
-        <h2 className="text-xl font-semibold text-gray-700">
+        <h2 className="text-xl font-semibold text-white">
           Maximum Breath Hold Time
         </h2>
-        <div className="text-4xl font-bold text-indigo-600 mt-2">
+        <div className="text-4xl font-bold text-indigo-500 mt-2">
           {formatHoldTime(maxHoldTime)} min
         </div>
       </div>
@@ -465,8 +465,8 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
       <div className="mb-8">
         <ul className="space-y-2">
           {roundResults.map((time, index) => (
-            <li key={index} className="text-gray-700">
-              Round {index + 1}:{" "}
+            <li key={index} className="text-gray-300">
+              <span className="font-semibold">Round {index + 1}:</span>{" "}
               <span className="font-medium">{formatHoldTime(time)} min</span>
             </li>
           ))}
