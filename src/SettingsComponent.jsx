@@ -11,7 +11,7 @@ const SPEED_OPTIONS = [
   { label: "Fast", value: 2.9 },
 ];
 
-const BREATH_OPTIONS = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+const BREATH_OPTIONS = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 const ROUND_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export default function SettingsComponent({
@@ -50,7 +50,7 @@ export default function SettingsComponent({
     return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
   };
 
-  const bubbleTransition = { type: "spring", bounce: 0.2, duration: 0.35 };
+  const bubbleTransition = { type: "spring", bounce: 0, duration: 0.3 };
 
   return (
     <div className="flex w-full flex-col items-center bg-white p-4 sm:p-8 pt-6 sm:pt-8">
