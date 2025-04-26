@@ -381,7 +381,7 @@ function ExerciseScreen({
   };
 
   return (
-    <div className="mt-21">
+    <div className="mt-21 lg:mt-19">
       <div className="flex flex-col items-center w-full max-w-lg text-center">
         <div
           className={`w-64 h-64 rounded-full border-2 border-white/20 flex items-center justify-center`}
