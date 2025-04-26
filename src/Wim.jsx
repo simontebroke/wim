@@ -359,6 +359,18 @@ function ExerciseScreen({
 
   const outerScale = scaleValue === 1 ? 1.2 : scaleValue;
 
+  const formatTime = (timeInSeconds) => {
+    const totalSeconds = Math.floor(timeInSeconds);
+    if (totalSeconds < 60) {
+      return totalSeconds;
+    } else {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      const formattedSeconds = String(seconds).padStart(2, "0");
+      return `${minutes}:${formattedSeconds}`;
+    }
+  };
+
   return (
     <div className="flex flex-col items-center w-full max-w-lg text-center">
       <div
@@ -389,7 +401,8 @@ function ExerciseScreen({
                 {currentBreath + 1}
               </span>
             )}
-            {(phase === "holdBreath" || phase === "recoveryBreath") && (
+            {(phase === "holdBreath" ||
+              (phase === "recoveryBreath" && breathPhase !== "exhale")) && (
               <div
                 className="text-4xl font-bold text-white"
                 style={{
@@ -397,7 +410,7 @@ function ExerciseScreen({
                   transition: `opacity ${opacityTransitionDuration} ease-in-out`,
                 }}
               >
-                {timer.toFixed(1)}
+                {formatTime(timer)}
               </div>
             )}
           </div>
@@ -405,23 +418,24 @@ function ExerciseScreen({
       </div>
       <div className="my-6 h-7"></div>
 
-      <button
-        onClick={resetExercise}
-        className="bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5 mb-4"
-      >
-        <span className="text-m font-semibold text-white block text-center">
-          Reset
-        </span>
-      </button>
-
-      {phase === "holdBreath" && (
+      <div className="flex flex-row items-center justify-center gap-4">
         <button
-          onClick={stopHoldBreath}
-          className="bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-6 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+          onClick={resetExercise}
+          className="bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
         >
-          Release Breath
+          <span className="text-m font-semibold text-white block text-center">
+            Reset
+          </span>
         </button>
-      )}
+        {phase === "holdBreath" && (
+          <button
+            onClick={stopHoldBreath}
+            className="bg-indigo-700 hover:bg-indigo-600 hover:scale-97 transition duration-200 ease-in-out rounded-xl px-5 py-3 w-40 text-m font-semibold text-white block text-center"
+          >
+            Release Breath
+          </button>
+        )}
+      </div>
     </div>
   );
 }

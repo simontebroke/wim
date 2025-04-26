@@ -105,8 +105,6 @@ export default function SettingsComponent({
             </div>
           </div>
           <div className="grid grid-cols-5 gap-2 sm:gap-3 relative">
-            {" "}
-            {/* Added relative here */}
             {BREATH_OPTIONS.map((option) => {
               const isActive = breathsValue === option;
               return (
@@ -119,7 +117,7 @@ export default function SettingsComponent({
                 >
                   {isActive && (
                     <motion.span
-                      layoutId="bubble-breaths" // Unique layoutId for this group
+                      layoutId="bubble-breaths"
                       className="absolute inset-0 z-0 bg-indigo-700 rounded-md"
                       transition={bubbleTransition}
                     />
@@ -131,7 +129,6 @@ export default function SettingsComponent({
           </div>
         </section>
 
-        {/* Rounds Section */}
         <section className="space-y-4">
           <div className="flex items-center space-x-3">
             <Repeat className="h-6 w-6 text-indigo-700" />
@@ -145,8 +142,6 @@ export default function SettingsComponent({
             </div>
           </div>
           <div className="grid grid-cols-5 gap-2 sm:gap-3 relative">
-            {" "}
-            {/* Added relative here */}
             {ROUND_OPTIONS.map((option) => {
               const isActive = roundsValue === option;
               return (
@@ -159,7 +154,7 @@ export default function SettingsComponent({
                 >
                   {isActive && (
                     <motion.span
-                      layoutId="bubble-rounds" // Unique layoutId for this group
+                      layoutId="bubble-rounds"
                       className="absolute inset-0 z-0 bg-indigo-700 rounded-md"
                       transition={bubbleTransition}
                     />
