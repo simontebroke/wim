@@ -381,72 +381,74 @@ function ExerciseScreen({
   };
 
   return (
-    <div className="flex flex-col items-center w-full max-w-lg text-center">
-      <div
-        className={`w-64 h-64 rounded-full border-2 border-white/20 flex items-center justify-center`}
-        style={{
-          transform: `scale(${outerScale})`,
-          transition: `transform ${scaleTransitionDuration} ease-in-out`,
-        }}
-      >
+    <div className="mt-19">
+      <div className="flex flex-col items-center w-full max-w-lg text-center">
         <div
-          className={`w-48 h-48 rounded-full border-3 border-white/40 flex items-center justify-center transition-transform duration-1000 ${
-            phase === "holdBreath" ? "scale-90" : "scale-100"
-          }`}
+          className={`w-64 h-64 rounded-full border-2 border-white/20 flex items-center justify-center`}
+          style={{
+            transform: `scale(${outerScale})`,
+            transition: `transform ${scaleTransitionDuration} ease-in-out`,
+          }}
         >
           <div
-            className={`w-32 h-32 rounded-full border-4 border-white/60 flex flex-col items-center justify-center transition-transform duration-1000 ${
+            className={`w-48 h-48 rounded-full border-3 border-white/40 flex items-center justify-center transition-transform duration-1000 ${
               phase === "holdBreath" ? "scale-90" : "scale-100"
-            } h-20`}
+            }`}
           >
-            {phase === "breathing" && (
-              <span
-                className="text-5xl font-semibold text-white select-none"
-                style={{
-                  opacity: textOpacity,
-                  transition: `opacity ${opacityTransitionDuration} ease-in-out`,
-                }}
-              >
-                {currentBreath + 1}
-              </span>
-            )}
-            {(phase === "holdBreath" ||
-              (phase === "recoveryBreath" && breathPhase !== "exhale")) && (
-              <div
-                className="text-4xl font-bold text-white"
-                style={{
-                  opacity:
-                    phase === "recoveryBreath" && breathPhase === "deepInhale"
-                      ? timerOpacity
-                      : 1,
-                  transition: `opacity 2s ease-in`,
-                }}
-              >
-                {formatTime(timer)}
-              </div>
-            )}
+            <div
+              className={`w-32 h-32 rounded-full border-4 border-white/60 flex flex-col items-center justify-center transition-transform duration-1000 ${
+                phase === "holdBreath" ? "scale-90" : "scale-100"
+              } h-20`}
+            >
+              {phase === "breathing" && (
+                <span
+                  className="text-5xl font-semibold text-white select-none"
+                  style={{
+                    opacity: textOpacity,
+                    transition: `opacity ${opacityTransitionDuration} ease-in-out`,
+                  }}
+                >
+                  {currentBreath + 1}
+                </span>
+              )}
+              {(phase === "holdBreath" ||
+                (phase === "recoveryBreath" && breathPhase !== "exhale")) && (
+                <div
+                  className="text-4xl font-bold text-white"
+                  style={{
+                    opacity:
+                      phase === "recoveryBreath" && breathPhase === "deepInhale"
+                        ? timerOpacity
+                        : 1,
+                    transition: `opacity 2s ease-in`,
+                  }}
+                >
+                  {formatTime(timer)}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="my-6 h-7"></div>
+        <div className="my-6 h-7"></div>
 
-      <div className="flex flex-row items-center justify-center gap-4">
-        <button
-          onClick={resetExercise}
-          className="bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
-        >
-          <span className="text-m font-semibold text-white block text-center">
-            Reset
-          </span>
-        </button>
-        {phase === "holdBreath" && (
+        <div className="flex flex-row items-center justify-center gap-4">
           <button
-            onClick={stopHoldBreath}
-            className="bg-indigo-700 hover:bg-indigo-600 hover:scale-97 transition duration-200 ease-in-out rounded-xl px-5 py-3 w-40 text-m font-semibold text-white block text-center"
+            onClick={resetExercise}
+            className="bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
           >
-            Release Breath
+            <span className="text-m font-semibold text-white block text-center">
+              Reset
+            </span>
           </button>
-        )}
+          {phase === "holdBreath" && (
+            <button
+              onClick={stopHoldBreath}
+              className="bg-indigo-700 hover:bg-indigo-600 hover:scale-97 transition duration-200 ease-in-out rounded-xl px-5 py-3 w-40 text-m font-semibold text-white block text-center"
+            >
+              Release Breath
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
