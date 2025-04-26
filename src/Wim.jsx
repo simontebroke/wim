@@ -466,35 +466,39 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
   };
 
   return (
-    <div className="w-full max-w-md bg-transparent rounded-2xl p-18 text-center ring-0 ring-gray-900 backdrop-blur-4xl">
-      <div className="mb-8">
-        <h2 className="text-xl font-medium text-white">Maximum Hold Time</h2>
-        <div className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-indigo-500 mt-2 tracking-tighter">
-          {formatHoldTime(maxHoldTime)} min
+    <div className="mt-7">
+      <div className="w-full max-w-md bg-transparent rounded-2xl p-18 text-center ring-0 ring-gray-900 backdrop-blur-4xl">
+        <div className="mb-8">
+          <h2 className="text-xl font-medium text-white">Maximum Hold Time</h2>
+          <div className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-indigo-500 mt-2 tracking-tighter">
+            {formatHoldTime(maxHoldTime)} min
+          </div>
         </div>
-      </div>
 
-      <div className="mb-8">
-        <ul className="space-y-2">
-          {roundResults.map((time, index) => (
-            <li key={index}>
-              <span className="font-semibold text-slate-100">
-                Round {index + 1}:
-              </span>{" "}
-              <span className="font-ligh text-gray-300">
-                {formatHoldTime(time)} min
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="flex justify-center">
-        <button
-          onClick={resetExercise}
-          className=" bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 mt-5 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
-        >
-          <span className="text-center text-white font-semibold">Go back</span>
-        </button>
+        <div className="mb-8">
+          <ul className="space-y-2">
+            {roundResults.map((time, index) => (
+              <li key={index}>
+                <span className="font-semibold text-slate-100">
+                  Round {index + 1}:
+                </span>{" "}
+                <span className="font-ligh text-gray-300">
+                  {formatHoldTime(time)} min
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="flex justify-center">
+          <button
+            onClick={resetExercise}
+            className=" bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 mt-5 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
+          >
+            <span className="text-center text-white font-semibold">
+              Go back
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );
