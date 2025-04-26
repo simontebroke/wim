@@ -81,7 +81,7 @@ export default function BreathingExercise({ onComplete }) {
   };
 
   const startRecoveryBreath = () => {
-    setTimer(15);
+    setTimer(15.9);
     setBreathPhase("deepInhale");
     if (timerRef.current) clearInterval(timerRef.current);
 
@@ -96,7 +96,7 @@ export default function BreathingExercise({ onComplete }) {
         }
         return nextTime;
       });
-    }, 1000);
+    }, 100);
 
     setTimeout(() => {
       if (appPhase === "recoveryBreath" && timerRef.current) {
