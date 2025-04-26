@@ -65,7 +65,6 @@ export default function Speed() {
           ),
         }}
       >
-        {/*<SpeakerXMarkIcon className="size-5 translate-x-0 translate-y-0 text-black" />*/}
         <p className="text-md relative -top-[1.25px] -right-0.25 text-sm font-bold">
           Slow
         </p>
@@ -127,7 +126,6 @@ export default function Speed() {
           ),
         }}
       >
-        {/* <SpeakerWaveIcon className="size-5 translate-x-0 translate-y-0 text-black" /> */}
         <p className="text-md relative -top-[1.25px] -left-0.25 text-sm font-bold">
           Fast
         </p>
@@ -136,7 +134,6 @@ export default function Speed() {
   );
 }
 
-// Sigmoid-based decay function
 function decay(value, max) {
   if (max === 0) {
     return 0;

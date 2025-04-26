@@ -495,7 +495,7 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
             className=" bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 mt-5 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
           >
             <span className="text-center text-white font-semibold">
-              Go back
+              New exercise
             </span>
           </button>
         </div>
