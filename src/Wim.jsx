@@ -381,7 +381,7 @@ function ExerciseScreen({
   };
 
   return (
-    <div className="mt-19">
+    <div className="mt-21">
       <div className="flex flex-col items-center w-full max-w-lg text-center">
         <div
           className={`w-64 h-64 rounded-full border-2 border-white/20 flex items-center justify-center`}
@@ -466,7 +466,7 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
   };
 
   return (
-    <div className="mt-7">
+    <div className="mt-9">
       <div className="w-full max-w-md bg-transparent rounded-2xl p-18 text-center ring-0 ring-gray-900 backdrop-blur-4xl">
         <div className="mb-8">
           <h2 className="text-xl font-medium text-white">Maximum Hold Time</h2>
@@ -492,7 +492,7 @@ function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
         <div className="flex justify-center">
           <button
             onClick={resetExercise}
-            className=" bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 mt-5 py-3 w-30 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
+            className=" bg-transparent hover:bg-gray-900 transition duration-200 ease-in-out rounded-xl px-3 mt-5 py-3 w-40 ring-1 ring-gray-800 hover:ring-gray-700 focus:outline-none hover:scale-97 drop-shadow-lg drop-shadow-indigo-500/30 hover:drop-shadow-indigo-500/5"
           >
             <span className="text-center text-white font-semibold">
               New exercise
