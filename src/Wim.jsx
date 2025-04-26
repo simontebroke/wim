@@ -441,41 +441,45 @@ function ExerciseScreen({
 }
 
 function ResultsScreen({ roundResults, maxHoldTime, resetExercise }) {
+  const formatHoldTime = (timeInSeconds) => {
+    const totalSeconds = Math.floor(timeInSeconds);
+    if (totalSeconds < 0) return "0:00";
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    const formattedSeconds = String(seconds).padStart(2, "0");
+    return `${minutes}:${formattedSeconds}`;
+  };
+
   return (
     <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 text-center">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">
-        Exercise Complete!
-      </h1>
-
       <div className="mb-8">
         <h2 className="text-xl font-semibold text-gray-700">
           Maximum Breath Hold Time
         </h2>
-        <div className="text-4xl font-bold text-blue-600 my-3">
-          {maxHoldTime.toFixed(1)} seconds
+        <div className="text-4xl font-bold text-indigo-600 mt-2">
+          {formatHoldTime(maxHoldTime)} min
         </div>
       </div>
 
       <div className="mb-8">
-        <h2 className="text-xl font-semibold text-gray-700 mb-3">
-          Round Results
-        </h2>
         <ul className="space-y-2">
           {roundResults.map((time, index) => (
             <li key={index} className="text-gray-700">
               Round {index + 1}:{" "}
-              <span className="font-medium">{time.toFixed(1)} seconds</span>
+              <span className="font-medium">{formatHoldTime(time)} min</span>
             </li>
           ))}
         </ul>
       </div>
-
-      <button
-        onClick={resetExercise}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-      >
-        Start New Session
-      </button>
+      <div className="flex justify-center">
+        <button
+          onClick={resetExercise}
+          className=" bg-indigo-700 hover:bg-indigo-600 hover:scale-97 transition duration-200 ease-in-out rounded-xl px-5 py-3 w-40 text-m font-semibold text-white block text-center"
+        >
+          New Exercise
+        </button>
+      </div>
     </div>
   );
 }

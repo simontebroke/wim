@@ -6,16 +6,13 @@ import { ExerciseScreen, ResultsScreen } from "./Wim.jsx";
 import { useSettings } from "./SettingsContext";
 
 export default function BreathingExercise({ onComplete }) {
-  // Get settings from context
   const { settings } = useSettings();
 
-  // Use settings from context instead of defaults
   const [numberOfRounds] = useState(settings.rounds);
   const [numberOfBreaths] = useState(settings.breaths);
   const [breathingSpeed] = useState(settings.breathingSpeed);
 
-  // App state management
-  const [appPhase, setAppPhase] = useState("breathing"); // Start directly in breathing phase
+  const [appPhase, setAppPhase] = useState("breathing");
   const [currentRound, setCurrentRound] = useState(1);
   const [currentBreath, setCurrentBreath] = useState(0);
   const [breathPhase, setBreathPhase] = useState("inhale");
@@ -23,11 +20,9 @@ export default function BreathingExercise({ onComplete }) {
   const [maxHoldTime, setMaxHoldTime] = useState(0);
   const [roundResults, setRoundResults] = useState([]);
 
-  // Timer references
   const timerRef = useRef(null);
   const breathingTimerRef = useRef(null);
 
-  // Controls the breathing animation cycle
   useEffect(() => {
     if (appPhase !== "breathing") return;
 
@@ -58,7 +53,6 @@ export default function BreathingExercise({ onComplete }) {
     };
   }, [appPhase, breathPhase, currentBreath, numberOfBreaths, breathingSpeed]);
 
-  // Start the hold breath timer
   const startHoldTimer = () => {
     setTimer(0);
     if (timerRef.current) clearInterval(timerRef.current);
@@ -67,7 +61,6 @@ export default function BreathingExercise({ onComplete }) {
     }, 100);
   };
 
-  // User stopped holding breath
   const stopHoldBreath = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = null;
@@ -102,10 +95,9 @@ export default function BreathingExercise({ onComplete }) {
       if (appPhase === "recoveryBreath" && timerRef.current) {
         setBreathPhase("holdInhale");
       }
-    }, 3000); // Keep this at 3 seconds for the initial deep inhale before holding
+    }, 3000);
   };
 
-  // Handle the final exhale after recovery
   const startExhale = () => {
     setBreathPhase("exhale");
     setTimer(5);
@@ -125,33 +117,27 @@ export default function BreathingExercise({ onComplete }) {
     }, 100);
   };
 
-  // Complete the current round
   const completeRound = () => {
-    // Statt currentRound mit dem Wert zu erhöhen, direkt den nächsten Wert berechnen
     if (currentRound + 1 <= numberOfRounds) {
-      setCurrentRound(currentRound + 1); // Setze die nächste Runde
-      setAppPhase("breathing"); // Setze die Phase zurück zur Atmung
+      setCurrentRound(currentRound + 1);
+      setAppPhase("breathing");
       setBreathPhase("inhale");
-      setCurrentBreath(0); // Setze die Atemzahl zurück
-      setTimer(0); // Setze den Timer zurück
+      setCurrentBreath(0);
+      setTimer(0);
     } else {
-      setAppPhase("results"); // Wenn alle Runden abgeschlossen sind, zeige die Ergebnisse
+      setAppPhase("results");
     }
   };
-  // Reset exercise and notify parent component
   const resetExercise = () => {
     if (timerRef.current) clearInterval(timerRef.current);
-    if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current); // Clear this too if used
+    if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
     timerRef.current = null;
     breathingTimerRef.current = null;
-    // Call the onComplete prop function passed from Header2alt
     if (onComplete) {
       onComplete();
     }
-    // No need to reset state here if the component unmounts
   };
 
-  // Cleanup timers on unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -159,7 +145,6 @@ export default function BreathingExercise({ onComplete }) {
     };
   }, []);
 
-  // Render Exercise or Results Screen
   return (
     <>
       {(appPhase === "breathing" ||
@@ -171,7 +156,7 @@ export default function BreathingExercise({ onComplete }) {
             breathPhase={breathPhase}
             currentRound={currentRound}
             totalRounds={numberOfRounds}
-            currentBreath={currentBreath} // Pass currentBreath directly
+            currentBreath={currentBreath}
             totalBreaths={numberOfBreaths}
             timer={timer}
             stopHoldBreath={stopHoldBreath}
