@@ -44,13 +44,11 @@ export default function SettingsComponent({
   const getButtonClasses = (isActive) => {
     const baseClasses =
       "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 z-10";
-    const activeClasses = "text-white z-1000 transition duration-100 ease-in";
+    const activeClasses = "text-white z-1000  ease-in";
     const inactiveClasses = "bg-gray-100 text-gray-950 hover:bg-gray-200";
 
     return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
   };
-
-  const bubbleTransition = { type: "spring", bounce: 0, duration: 0.3 };
 
   return (
     <div className="flex w-full flex-col items-center bg-white p-4 sm:p-8 pt-6 sm:pt-8">
@@ -74,17 +72,12 @@ export default function SettingsComponent({
                 <button
                   key={option.label}
                   onClick={() => setSpeedValue(option.value)}
-                  className={`${getButtonClasses(isActive)} py-5 text-base`}
+                  className={`${getButtonClasses(isActive)} py-5 text-base ${
+                    isActive ? "bg-indigo-700" : ""
+                  }`}
                   aria-pressed={isActive}
                   style={{ WebkitTapHighlightColor: "transparent" }}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="bubble-speed"
-                      className="absolute inset-0 z-2 bg-indigo-700 rounded-md"
-                      transition={bubbleTransition}
-                    />
-                  )}
                   <span className="relative z-10">{option.label}</span>
                 </button>
               );
@@ -111,17 +104,12 @@ export default function SettingsComponent({
                 <button
                   key={option}
                   onClick={() => setBreathsValue(option)}
-                  className={`${getButtonClasses(isActive)} py-3 text-sm`}
+                  className={`${getButtonClasses(isActive)} py-3 text-sm ${
+                    isActive ? "bg-indigo-700" : ""
+                  }`}
                   aria-pressed={isActive}
                   style={{ WebkitTapHighlightColor: "transparent" }}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="bubble-breaths"
-                      className="absolute inset-0 z-0 bg-indigo-700 rounded-md"
-                      transition={bubbleTransition}
-                    />
-                  )}
                   <span className="relative z-10">{option}</span>
                 </button>
               );
@@ -148,17 +136,12 @@ export default function SettingsComponent({
                 <button
                   key={option}
                   onClick={() => setRoundsValue(option)}
-                  className={`${getButtonClasses(isActive)} py-3 text-sm`}
+                  className={`${getButtonClasses(isActive)} py-3 text-sm ${
+                    isActive ? "bg-indigo-700" : ""
+                  }`}
                   aria-pressed={isActive}
                   style={{ WebkitTapHighlightColor: "transparent" }}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="bubble-rounds"
-                      className="absolute inset-0 z-0 bg-indigo-700 rounded-md"
-                      transition={bubbleTransition}
-                    />
-                  )}
                   <span className="relative z-10">{option}</span>
                 </button>
               );

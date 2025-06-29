@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "SFNS";
+  src: url("/public/SFNS.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: SFNS, Helvetica, Avenir, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
